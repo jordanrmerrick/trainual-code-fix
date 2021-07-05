@@ -1,3 +1,7 @@
 src/_build
 src/*.html
 _build
+server/_build
+server/_esy
+server/node_modules
+server/esy.lock

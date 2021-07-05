@@ -1,20 +1,3 @@
-open! Stdio
-
-module Input = struct
-  let read_file filename = 
-    In_channel.read_lines filename
-
-  let two_list_to_tuple = function 
-    | x::y::_ -> x,y
-    | _ -> failwith "wrong list length"
-
-  let read_filenames () = 
-    In_channel.input_lines stdin 
-    |> two_list_to_tuple
-
-end
-
-(* Utility functions *)
 let char_to_string c = 
   let buf = Buffer.create 1 in
   Buffer.add_char buf c; Buffer.contents buf
@@ -71,14 +54,7 @@ let scan_lines (ls : string array list) ~f =
   in
   aux [] ls |> List.rev
 
-let write filename (ls : string array list) = 
-  List.map (array_to_string) ls |> fun x ->
-  Out_channel.write_lines filename x
-
-
-let () = 
-  let r, w = Input.read_filenames () in
-  let lines = Input.read_file r in
-  List.map (string_to_string_array) lines
+let handler ls = 
+  List.map string_to_string_array ls
   |> scan_lines ~f:scan_line
-  |> write w
+  |> List.map array_to_string
